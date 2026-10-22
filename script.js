@@ -63,7 +63,6 @@
     if (opened) return;
     opened = true;
     seal.disabled = true;
-    if (!instant) playHeaven();
     envelope.classList.add("is-opening");
 
     // The invitation remains inert until the overlay has completely finished.

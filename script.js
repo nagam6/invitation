@@ -51,31 +51,6 @@
 
   /* ---------------- Opening sequence ---------------- */
 
-  // Only this local recording is used. A missing/blocked recording leaves the opening silent.
-  const heaven = new Audio();
-  heaven.preload = "none";
-  let audioFrame = 0;
-
-  const playHeaven = () => {
-    heaven.src = "assets/audio/heaven.mp3";
-    heaven.volume = 0;
-    // Keep play() inside the click handler to preserve browser user activation.
-    const playback = heaven.play();
-    if (!playback) return;
-    playback.then(() => {
-      const startedAt = performance.now();
-      const fadeIn = (now) => {
-        const progress = Math.min((now - startedAt) / 900, 1);
-        heaven.volume = .24 * progress;
-        if (progress < 1 && !heaven.paused) audioFrame = requestAnimationFrame(fadeIn);
-      };
-      audioFrame = requestAnimationFrame(fadeIn);
-    }).catch(() => {
-      cancelAnimationFrame(audioFrame);
-      // No replacement sound and no interruption to the animation.
-    });
-  };
-
   const unlockPage = () => {
     envelope.hidden = true;
     invitation.removeAttribute("inert");
